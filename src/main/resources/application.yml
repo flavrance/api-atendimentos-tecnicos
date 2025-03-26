@@ -1,0 +1,48 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-atendimentos-tecnicos
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when_authorized
+  info:
+    git:
+      mode: full
+
+aws:
+  region: us-east-1
+  dynamodb:
+    endpoint: http://localhost:8000  # Para desenvolvimento local
+  accessKeyId: local
+  secretKey: local
+
+logging:
+  level:
+    com.technicalsupport: DEBUG
+    org.springframework: INFO
+    org.springdoc: DEBUG
+    
+springdoc:
+  api-docs:
+    enabled: true
+    path: /api-docs
+    version: openapi_3_1
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: alpha
+    docExpansion: none
+    disable-swagger-default-url: true
+  show-actuator: true
+  packages-to-scan: com.technicalsupport.api.controllers
+  paths-to-match: /api/**
+  default-consumes-media-type: application/json
+  default-produces-media-type: application/json 

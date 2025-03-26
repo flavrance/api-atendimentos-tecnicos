@@ -1,0 +1,35 @@
+{
+    "family": "api-atendimentos-tecnicos",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": ["FARGATE"],
+    "cpu": "256",
+    "memory": "512",
+    "containerDefinitions": [
+        {
+            "name": "api-atendimentos-container",
+            "image": "api-atendimentos-tecnicos:latest",
+            "portMappings": [
+                {
+                    "containerPort": 8080,
+                    "protocol": "tcp"
+                }
+            ],
+            "environment": [
+                {
+                    "name": "SPRING_PROFILES_ACTIVE",
+                    "value": "prod"
+                }
+            ],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-group": "/ecs/api-atendimentos-tecnicos",
+                    "awslogs-region": "us-east-1",
+                    "awslogs-stream-prefix": "ecs"
+                }
+            }
+        }
+    ],
+    "executionRoleArn": "arn:aws:iam::ACCOUNT_ID:role/ecsTaskExecutionRole",
+    "taskRoleArn": "arn:aws:iam::ACCOUNT_ID:role/ecsTaskRole"
+} 
